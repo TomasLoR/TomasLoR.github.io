@@ -8,7 +8,7 @@
   --muted: #67594d;
   --accent-strong: #77331e;
   --accent-soft: rgba(160, 75, 47, 0.08);
-  --shadow: 0 24px 60px rgba(44, 28, 16, 0.12);
+  --shadow: 0 1.5625rem 3.75rem rgba(44, 28, 16, 0.12);
 }
 
 * {
@@ -37,7 +37,7 @@ body::before {
   pointer-events: none;
   background-image: linear-gradient(rgba(32, 25, 20, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(32, 25, 20, 0.03) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-size: 1.875rem 1.875rem;
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.25), transparent 75%);
 }
 
@@ -50,34 +50,27 @@ a:hover {
   color: var(--accent-strong);
 }
 
-.lang-anchor {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-}
-
 .page-shell {
-  width: min(980px, calc(100% - 32px));
+  width: min(61.25rem, calc(100% - 1.875rem));
   margin: 0 auto;
-  padding: 56px 0 72px;
+  padding: 3.4375rem 0 4.375rem;
   display: grid;
-  gap: 20px;
+  gap: 1.25rem;
 }
 
 .card {
   background: var(--card);
   border: 1px solid var(--card-border);
-  border-radius: 28px;
+  border-radius: 1.875rem;
   box-shadow: var(--shadow);
-  backdrop-filter: blur(12px);
-  padding: 28px;
+  backdrop-filter: blur(0.625rem);
+  padding: 1.875rem;
   transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background-color 180ms ease;
 }
 
 .card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 30px 70px rgba(44, 28, 16, 0.15);
+  transform: translateY(-0.3125rem);
+  box-shadow: 0 1.875rem 4.375rem rgba(44, 28, 16, 0.15);
   border-color: rgba(160, 75, 47, 0.18);
 }
 
@@ -85,168 +78,146 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  gap: 0.9375rem;
   flex-wrap: wrap;
   background: transparent;
   border: none;
-  padding: 12px 0;
+  padding: 0.625rem 0;
   box-shadow: none;
   backdrop-filter: none;
-  margin-bottom: 8px;
+  margin-bottom: 0.625rem;
 }
 
 .nav-links,
-.language-switch,
-.links {
+.language-switch {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .nav-card a,
-.language-switch a,
+.language-switch button,
 .section-link,
 .project a,
-.footer-card a,
-.links a {
+.cv-link {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 11px 14px;
-  border-radius: 999px;
+  justify-content: center;
+  gap: 0.625rem;
+  padding: 0.625rem 0.9375rem;
+  border-radius: 99rem;
   color: var(--text);
   background: rgba(255, 255, 255, 0.56);
   border: 1px solid rgba(73, 55, 38, 0.1);
+  font-family: inherit;
+  cursor: pointer;
   font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease, color 180ms ease;
 }
 
-.language-switch a.is-active {
+.language-switch button.active {
   color: var(--accent-strong);
   background: rgba(255, 255, 255, 0.84);
+  border-color: rgba(160, 75, 47, 0.18);
 }
 
 .nav-card a:hover,
-.language-switch a:hover,
+.language-switch button:hover,
 .section-link:hover,
 .project a:hover,
-.footer-card a:hover,
-.links a:hover {
-  transform: translateY(-1px);
+.cv-link:hover {
+  transform: translateY(-0.0625rem);
   background: var(--accent-soft);
   border-color: rgba(160, 75, 47, 0.18);
   color: var(--accent-strong);
 }
 
-/* JAZYKOVÉ PANELY - LOGIKA FUNKČNOSTI */
-.lang-panel {
-  display: grid;
-  gap: 20px;
-}
-
-/* Výchozí stav (skryje CZ, EN nechá běžet jako grid) */
-.lang-panel--cz {
+.cz, .en {
   display: none;
 }
 
-/* Aktivní CZ verze v URL */
-#cz:target ~ .page-shell .lang-panel--en {
-  display: none;
+body[data-lang="en"] .en {
+  display: inline-block;
 }
-#cz:target ~ .page-shell .lang-panel--cz {
-  display: grid;
-}
-
-/* Aktivní EN verze v URL */
-#en:target ~ .page-shell .lang-panel--en {
-  display: grid;
-}
-#en:target ~ .page-shell .lang-panel--cz {
-  display: none;
+body[data-lang="en"] p.en, 
+body[data-lang="en"] h2.en, 
+body[data-lang="en"] h3.en {
+  display: block;
 }
 
+body[data-lang="cz"] .cz {
+  display: inline-block;
+}
+body[data-lang="cz"] p.cz, 
+body[data-lang="cz"] h2.cz, 
+body[data-lang="cz"] h3.cz {
+  display: block;
+}
 
-/* SEKCE A ELEMENTY */
 .hero {
-  padding: 42px 28px 36px;
-}
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(160, 75, 47, 0.2);
-  background: rgba(255, 255, 255, 0.55);
-  color: var(--accent-strong);
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  padding: 2.5rem 1.875rem 2.1875rem;
 }
 
 h1, h2, h3 {
   margin: 0;
-  font-family: "Cormorant Garamond", serif;
   line-height: 0.95;
   letter-spacing: -0.02em;
 }
 
 h1 {
-  margin-top: 18px;
-  font-size: clamp(3.3rem, 8vw, 6rem);
+  margin-top: 1.25rem;
+  font-size: clamp(3rem, 7vw, 4rem);
 }
 
 h2 {
-  font-size: clamp(2rem, 3vw, 2.6rem);
+  font-size: clamp(2rem, 3vw, 2.5rem);
 }
 
 h3 {
-  font-size: 1.7rem;
+  font-size: 1.75rem;
 }
 
 p {
   margin: 0;
   color: var(--muted);
   line-height: 1.7;
-  font-size: 1.02rem;
+  font-size: 1rem;
 }
 
-.lead {
+.hero-tags {
   max-width: 60ch;
-  margin-top: 18px;
-  font-size: 1.12rem;
+  margin-top: 1.25rem;
+  font-size: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .section-block {
-  scroll-margin-top: 24px;
+  scroll-margin-top: 1.5625rem;
 }
 
 .section-heading {
   display: grid;
-  gap: 8px;
-  margin-bottom: 18px;
+  gap: 0.625rem;
+  margin-bottom: 1.25rem;
 }
 
 .section-heading--split {
   display: flex;
   justify-content: space-between;
-  align-items: end;
-  gap: 16px;
+  align-items: flex-end;
+  gap: 0.9375rem;
 }
 
 .section-heading--split > div {
   display: grid;
-  gap: 8px;
-}
-
-.section-link {
-  justify-self: end;
+  gap: 0.625rem;
 }
 
 .section-heading p,
-.topbar-copy,
 .footer-card p,
 .project p {
   max-width: 62ch;
@@ -254,32 +225,32 @@ p {
 
 .skill-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(8.75rem, 1fr));
+  gap: 0.625rem;
 }
 
 .skill-card {
   display: grid;
   justify-items: center;
-  gap: 10px;
-  padding: 18px 14px 16px;
-  border-radius: 20px;
+  gap: 0.625rem;
+  padding: 1.25rem 0.9375rem 0.9375rem;
+  border-radius: 1.25rem;
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(73, 55, 38, 0.1);
-  min-height: 112px;
+  min-height: 6.875rem;
   text-align: center;
   transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
 .skill-card:hover {
-  transform: translateY(-4px) scale(1.01);
+  transform: translateY(-0.25rem);
   background: rgba(255, 255, 255, 0.9);
   border-color: rgba(160, 75, 47, 0.18);
-  box-shadow: 0 12px 30px rgba(44, 28, 16, 0.1);
+  box-shadow: 0 0.625rem 1.875rem rgba(44, 28, 16, 0.1);
 }
 
 .skill-card i {
-  font-size: 2.2rem;
+  font-size: 2.25rem;
   line-height: 1;
 }
 
@@ -290,68 +261,124 @@ p {
 
 .projects {
   display: grid;
-  gap: 14px;
+  gap: 0.9375rem;
 }
 
 .project {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
-  padding: 18px 18px 18px 20px;
-  border-radius: 22px;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  border-radius: 1.25rem;
   border: 1px solid rgba(73, 55, 38, 0.1);
   background: rgba(255, 255, 255, 0.58);
   transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, border-color 180ms ease;
 }
 
 .project:hover {
-  transform: translateY(-3px);
+  transform: translateY(-0.3125rem);
   background: rgba(255, 255, 255, 0.82);
   border-color: rgba(160, 75, 47, 0.18);
-  box-shadow: 0 12px 30px rgba(44, 28, 16, 0.1);
+  box-shadow: 0 0.625rem 1.875rem rgba(44, 28, 16, 0.1);
 }
 
 .project p {
-  margin-top: 8px;
+  margin-top: 0.625rem;
+}
+
+.contact-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.contact-icons a.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  border: none !important;
+  color: var(--accent-strong) !important;
+  font-size: 1.75rem;
+  padding: 0.3125rem;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: none;
+  transition: transform 180ms ease, color 180ms ease;
+}
+
+.contact-icons a.social-icon:hover {
+  transform: translateY(-0.25rem) !important;
+  color: var(--text) !important;
+}
+
+.contact-icons a.social-icon i {
+  display: block;
+  line-height: 1;
 }
 
 .project a::after,
 .section-link::after,
-.footer-card a::after,
-.links a::after {
-  content: "↗";
+.cv-link::after {
+  content: " ↗";
+}
+
+.scroll-to-top {
+  position: fixed;
+  bottom: -4rem;
+  right: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: rgba(160, 75, 47, 0.9);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  transition: bottom 300ms ease, background 180ms ease, transform 180ms ease;
+  border: none;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.scroll-to-top:hover {
+  background: rgba(119, 51, 30, 1);
+  transform: translateY(-0.25rem);
+}
+
+.scroll-to-top.visible {
+  bottom: 2rem;
 }
 
 .footer-card {
   display: grid;
-  gap: 18px;
+  gap: 1.25rem;
   background: transparent;
   border: none;
-  padding: 24px 0 0;
+  padding: 1.5625rem 0 0;
   box-shadow: none;
   backdrop-filter: none;
-  border-top: 1px solid var(--card-border);
-  margin-top: 20px;
+  border-top: 0.15rem solid var(--card-border);
+  margin-top: 1.25rem;
 }
 
-.footer-card .links a {
-  border-radius: 16px;
-}
-
-/* RESPONSIVITA */
-@media (max-width: 720px) {
+@media (max-width: 45rem) {
   .page-shell {
-    width: min(100% - 20px, 980px);
-    padding: 20px 0 28px;
+    width: min(100% - 1.25rem, 61.25rem);
+    padding: 1.25rem 0 1.875rem;
   }
 
   .card {
-    padding: 22px;
-    border-radius: 24px;
+    padding: 1.25rem;
+    border-radius: 1.5625rem;
   }
 
   .hero {
-    padding: 28px 22px 24px;
+    padding: 1.875rem 1.25rem 1.5625rem;
   }
 
   .nav-card,
@@ -359,13 +386,10 @@ p {
   .project {
     flex-direction: column;
     align-items: flex-start;
+    gap: 0.9375rem;
   }
 
-  .section-link {
-    justify-self: start;
-  }
-
-  .skill-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .project a {
+    align-self: flex-start;
   }
 }
